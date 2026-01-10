@@ -1,17 +1,37 @@
 .container {
     text-align: center;
 }
-
 .canvas-container {
     margin: auto;
     display: inline-block;
 }
-
 canvas {
     border: 1px solid black;
     display: block;
 }
-
 .controls {
     margin-top: 10px;
+}
+.points-panel {
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f5f5f5;
+}
+
+#pointsTable input {
+    width: 80px;
 }

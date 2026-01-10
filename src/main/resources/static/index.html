@@ -2,27 +2,41 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Bezzy | A Bézier curve visualizer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Bezzy | A Bézier curve visualizer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<div class="container">
-    <h1>Bezier Curve Visualizer</h1>
-    <p>Click on the canvas to add control points, then click "Draw Curve"</p>
+  <div class="container">
+    <h1>Bézier Curve Visualizer</h1>
+    <p>Click on the canvas to add control points, then click "Draw Curve".</p>
+    <p><sub>* note that the y direction is down</sub></p>
+    <p><sub>&larr; and (0, 0) is over there</sub></p>
+
 
     <div class="canvas-container">
-        <canvas id="canvas" width="800" height="600"></canvas>
-
-        <div class="controls">
-            <button id="drawButton">Draw Curve</button>
-            <button id="clearButton">Clear</button>
-        </div>
+      <canvas id="canvas" width="800" height="600"></canvas>
+      <div class="controls">
+        <button id="drawButton">Draw Curve</button>
+        <button id="clearButton">Clear</button>
+      </div>
     </div>
-</div>
-
-<script src="bezier.js"></script>
+    <div class="points-panel">
+      <h3>Control Points</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>X</th>
+            <th>Y</th>
+          </tr>
+        </thead>
+        <tbody id="pointsTable"></tbody>
+      </table>
+    </div>
+  </div>
+  <script src="bezier.js"></script>
 </body>
 
 </html>
