@@ -1,0 +1,17 @@
+.container {
+    text-align: center;
+}
+
+.canvas-container {
+    margin: auto;
+    display: inline-block;
+}
+
+canvas {
+    border: 1px solid black;
+    display: block;
+}
+
+.controls {
+    margin-top: 10px;
+}
