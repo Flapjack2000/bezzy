@@ -8,10 +8,17 @@
 canvas {
     border: 1px solid black;
     display: block;
+    border-radius: 10px;
 }
 .controls {
     margin-top: 10px;
 }
+.controls button{
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: large;
+}
+
 .points-panel {
     margin: 20px auto;
     max-width: 800px;
