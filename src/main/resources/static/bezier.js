@@ -71,38 +71,42 @@ function drawControlPoints() {
     }
 }
 
+function interpolateColor(t) {
+    const colorPalette = ['#FF0000', '#0000FF', '#00FF00', '#FF8C00', '#9400D3', '#00FFFF', '#FFD700', '#FF1493'];
+
+    const colorIndex = t * (controlPoints.length - 1);
+    const lowerIndex = Math.floor(colorIndex);
+    const upperIndex = Math.min(lowerIndex + 1, controlPoints.length - 1);
+    const localT = colorIndex - lowerIndex;
+
+    // Interpolate between two control point colors
+    const color1 = colorPalette[lowerIndex % colorPalette.length];
+    const color2 = colorPalette[upperIndex % colorPalette.length];
+
+    const r1 = parseInt(color1.slice(1, 3), 16);
+    const g1 = parseInt(color1.slice(3, 5), 16);
+    const b1 = parseInt(color1.slice(5, 7), 16);
+
+    const r2 = parseInt(color2.slice(1, 3), 16);
+    const g2 = parseInt(color2.slice(3, 5), 16);
+    const b2 = parseInt(color2.slice(5, 7), 16);
+
+    const r = Math.round(r1 + (r2 - r1) * localT);
+    const g = Math.round(g1 + (g2 - g1) * localT);
+    const b = Math.round(b1 + (b2 - b1) * localT);
+
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
 function drawCurve(curvePoints) {
     if (curvePoints.length === 0) return;
 
     if (gradientCheckbox.checked) {
-        const colorPalette = ['#FF0000', '#0000FF', '#00FF00', '#FF8C00', '#9400D3', '#00FFFF', '#FFD700', '#FF1493'];
-
-        // Draw curve with gradient by drawing segments
+        // Draw curve with gradient
         ctx.lineWidth = 2;
         for (let i = 0; i < curvePoints.length - 1; i++) {
             const t = i / (curvePoints.length - 1);
-            const colorIndex = t * (controlPoints.length - 1);
-            const lowerIndex = Math.floor(colorIndex);
-            const upperIndex = Math.min(lowerIndex + 1, controlPoints.length - 1);
-            const localT = colorIndex - lowerIndex;
-
-            // Interpolate between two control point colors
-            const color1 = colorPalette[lowerIndex % colorPalette.length];
-            const color2 = colorPalette[upperIndex % colorPalette.length];
-
-            const r1 = parseInt(color1.slice(1, 3), 16);
-            const g1 = parseInt(color1.slice(3, 5), 16);
-            const b1 = parseInt(color1.slice(5, 7), 16);
-
-            const r2 = parseInt(color2.slice(1, 3), 16);
-            const g2 = parseInt(color2.slice(3, 5), 16);
-            const b2 = parseInt(color2.slice(5, 7), 16);
-
-            const r = Math.round(r1 + (r2 - r1) * localT);
-            const g = Math.round(g1 + (g2 - g1) * localT);
-            const b = Math.round(b1 + (b2 - b1) * localT);
-
-            ctx.strokeStyle = `rgb(${r}, ${g}, ${b})`;
+            ctx.strokeStyle = interpolateColor(t, curvePoints.length);
             ctx.beginPath();
             ctx.moveTo(curvePoints[i].x, curvePoints[i].y);
             ctx.lineTo(curvePoints[i + 1].x, curvePoints[i + 1].y);
@@ -110,6 +114,7 @@ function drawCurve(curvePoints) {
         }
     }
     else {
+        // Draw black curve
         ctx.strokeStyle = '#000';
         ctx.lineWidth = 2;
         ctx.beginPath();
